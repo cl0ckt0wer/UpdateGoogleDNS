@@ -16,7 +16,6 @@ namespace UpdateGoogleDNS
         static readonly string[] PasswordFlags = new string[] { "/pw", "/password" };
         static readonly string[] DomainFlags = new string[] { "/d", "/domain" };
         static readonly string[] EmailFlags = new string[] { "/e", "/email" };
-
         static async Task Main(string[] args)
         {
             if (args.Any(x => x.StartsWith("/?") || x.StartsWith("/help")))
@@ -32,14 +31,11 @@ namespace UpdateGoogleDNS
             string domain = ParseMyArg(DomainFlags, args);
             //where am i supposed to put the email in the request?
             //works without it...
-
             //string email = ParseMyArg(EmailFlags, args);
-            
             var updateip = $"https://domains.google.com/nic/update?hostname={domain}=";
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {
-            
                 //check what ips our domain is currently registerd as
                 IPHostEntry? registeredip;
                 try
@@ -55,20 +51,15 @@ namespace UpdateGoogleDNS
                 }
                 var ipresponse = await client.GetStringAsync($"https://domains.google.com/checkip");
                 Console.WriteLine($"My external address is {ipresponse}");
-
                 IPAddress? ip;
                 IPAddress.TryParse(ipresponse, out ip);
-              
                 //google doesn't let you do this without an agent string set
-
                 client.DefaultRequestHeaders.UserAgent.TryParseAdd("AAAreYouReadingThisLetsGetABeerWhenAllThisIsOver/19516343803");
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(
                         "Basic", Convert.ToBase64String(
                             System.Text.ASCIIEncoding.ASCII.GetBytes(
                                $"{username}:{password}")));
-                
-             
                 //update address if it's not correct
                 if (registeredip.AddressList == null || !registeredip.AddressList.Contains(ip))
                 {
@@ -104,6 +95,4 @@ namespace UpdateGoogleDNS
             throw new ArgumentException();
         }
     }
-   
-
 }
