@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "UpdateGoogleDNS": {
+      "commandName": "Project",
+      "commandLineArgs": "/un:test1 /pw:pwtest /d:www.my.test "
+    }
+  }
+}
