@@ -32,7 +32,7 @@ namespace UpdateGoogleDNS
             //where am i supposed to put the email in the request?
             //works without it...
             //string email = ParseMyArg(EmailFlags, args);
-            var updateip = $"https://domains.google.com/nic/update?hostname={domain}=";
+            var updateip = $"https://domains.google.com/nic/update?hostname={domain}&myip=";
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {
